@@ -2,7 +2,7 @@ import plotly.express as px
 import sqlite3
 import pandas as pd
 import datetime as dt
-import streamlit
+import streamlit as st
 
 connection = sqlite3.connect("data.sqlite")
 
