@@ -54,7 +54,7 @@ years = [str(i.year) for i in price_months.date]
 
 price_months = pd.concat([price_months, pd.Series(years, name="year")], axis=1)
 
-plot_task1 = px.line(price_months, x="month", y="monthly_price", color="year",
+plot_task1 = px.line(price_months.sort_values("date"), x="month", y="monthly_price", color="year",
         title="Revenue Generated for 2020 & 2021")
 
 
