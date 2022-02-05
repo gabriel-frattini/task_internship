@@ -1,4 +1,3 @@
-from matplotlib.pyplot import streamplot
 import plotly.express as px
 import sqlite3
 import pandas as pd
