@@ -127,7 +127,7 @@ with connection as conn:
     fetch = exc2.fetchone()
     
 st.plotly_chart(plot_task2)
-button = st.button("Identify month with the highest amount of revenue arising from new subscriptions")
+button = st.button("Month with the highest amount of revenue arising from new subscriptions")
 
 if button:
-    st.subheader( f'The month with the highest amount of revenues generated from new subscriptions was in {fetch[1]} and was a total of {fetch[0]} $')
+    st.subheader( f'The date was {fetch[1]} and a total of {fetch[0]} $ was generated from this month')
