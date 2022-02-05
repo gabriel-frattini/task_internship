@@ -90,13 +90,11 @@ df_revenue = df_revenue.sort_values("date")
 plot_task2 = px.line(df_revenue, x="date", y="revenue",
         title="Revenue $ Generated from new subscriptions")
 
+st.title("Task submission for internship at CARIFY")
+st.plotly_chart(plot_task1)
 
-def main():
-    st.title("Task submission for internship at CARIFY")
-    
-    st.plotly_chart(plot_task1)
-    with connection as conn:
-        exc2 = conn.execute("WITH RECURSIVE cte_table(revenue_2020, revenue_2021) AS (\
+with connection as conn:
+    exc2 = conn.execute("WITH RECURSIVE cte_table(revenue_2020, revenue_2021) AS (\
         SELECT CASE \
         WHEN strftime('%Y',end_date)=='2021' AND strftime('%Y',start_date)=='2020' \
             THEN ((JULIANDAY('2021-01-' || strftime('%d',start_date)) - JULIANDAY(start_date))/30) * subscription_monthly_price \
@@ -109,31 +107,27 @@ def main():
          SELECT CAST(SUM(revenue_2020) AS INT) || ' $', CAST(SUM(revenue_2021) AS INT) || ' $' \
         FROM cte_table")
 
-        for i in exc2.fetchall():
-            revenue_20 = i[0]
-            revenue_21 = i[1]
+    for i in exc2.fetchall():
+        revenue_20 = i[0]
+        revenue_21 = i[1]
         
-    click_20 = st.button("Revenue generated for 2020")  
-    click_21 = st.button("Revenue generated for 2021")
+click_20 = st.button("Revenue generated for 2020")  
+click_21 = st.button("Revenue generated for 2021")
 
-    if click_20:
-        st.subheader(revenue_20)
-    elif click_21:
-        st.subheader(revenue_21)
+if click_20:
+    st.subheader(revenue_20)
+elif click_21:
+    st.subheader(revenue_21)
 
+with connection as conn:
 
-    with connection as conn:
-
-        exc2 = conn.execute(
+    exc2 = conn.execute(
         "SELECT CAST(SUM(subscription_monthly_price) AS INT) AS total, strftime('%Y-%m',start_date) AS month FROM task GROUP BY month ORDER BY total DESC LIMIT 1")
 
-        fetch = exc2.fetchone()
+    fetch = exc2.fetchone()
     
-    st.plotly_chart(plot_task2)
-    button = st.button("Identify month with the highest amount of revenue arising from new subscriptions")
+st.plotly_chart(plot_task2)
+button = st.button("Identify month with the highest amount of revenue arising from new subscriptions")
 
-    if button:
-        st.subheader( f'The month with the highest amount of revenues generated from new subscriptions was in {fetch[1]} and was a total of {fetch[0]} $')
-
-if __name__ == '__main__':
-    main()
+if button:
+    st.subheader( f'The month with the highest amount of revenues generated from new subscriptions was in {fetch[1]} and was a total of {fetch[0]} $')
