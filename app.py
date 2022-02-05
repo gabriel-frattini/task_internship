@@ -43,18 +43,15 @@ df_dates = pd.DataFrame(new_dates, columns=["date", "index"])
 
 df_all = df.merge(df_dates, left_on=df["index"], right_on=df_dates["index"])
 df_all = df_all.drop(["key_0", "index_y"], axis=1)
+df_all["monthly_price"] = pd.to_numeric(df_all.monthly_price)
 
 price_months = df_all.groupby("date")["monthly_price"].sum()
-
 price_months = price_months.reset_index()
 
 price_months["date"] = pd.to_datetime(price_months.date)
-
-
-price_months["monthly_price"] = pd.to_numeric(price_months.monthly_price)
 price_months["month"] = price_months.date.dt.strftime('%b')
-
 years = [str(i.year) for i in price_months.date]
+
 price_months = pd.concat([price_months, pd.Series(years, name="year")], axis=1)
 
 plot_task1 = px.line(price_months, x="month", y="monthly_price", color="year",
