@@ -64,14 +64,7 @@ price_months = pd.concat([price_months, pd.Series(years, name="year")], axis=1)
 plot_task1 = px.line(price_months.sort_values("date"), x="month", y="monthly_price", color="year",
         title="Revenue Generated for 2020 & 2021")
 
-# sql query for task 2
 
-monthly_subscriptions = []
-with connection as conn:
-    exc = conn.execute(
-        "SELECT CAST(SUM(subscription_monthly_price) AS INT) AS total, strftime('%Y-%m',start_date) AS month FROM task GROUP BY month ORDER BY total DESC")
-    for i in exc.fetchall():
-        monthly_subscriptions.append(i)
 
     # queries for task 2
  
