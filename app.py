@@ -97,6 +97,7 @@ plot_task2 = px.line(df_revenue, x="date", y="revenue",
 
 st.title("Task submission for internship at CARIFY")
 
+st.header("1.")
 st.subheader("What was the total revenues generated in the year 2020 and 2021, respectively?")
 
 st.plotly_chart(plot_task1)
@@ -139,6 +140,7 @@ with connection as conn:
 
     fetch = exc2.fetchone()
 
+st.header("2.")
 st.subheader("Identify the month with the highest amount of revenues arising from new subscriptions")
 
 st.plotly_chart(plot_task2)
