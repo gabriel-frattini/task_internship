@@ -124,14 +124,14 @@ col1, col2 = st.columns(2)
 
 with col1:
     click_20 = st.button("Revenue generated for 2020")
+    if click_20:
+    st.subheader(revenue_20)
 
 with col2:
     click_21 = st.button("Revenue generated for 2021")
-
-if click_20:
-    st.subheader(revenue_20)
-elif click_21:
+    if click_21:
     st.subheader(revenue_21)
+    
 
 with connection as conn:
 
