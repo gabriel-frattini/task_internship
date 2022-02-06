@@ -119,7 +119,7 @@ with connection as conn:
         revenue_20 = i[0]
         revenue_21 = i[1]
 
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
 
 with col1:
     click_20 = st.button("Revenue generated for 2020")
