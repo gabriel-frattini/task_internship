@@ -18,10 +18,8 @@ with connection as conn:
 df = pd.DataFrame(
     lists, columns=["monthly_price", "start", "end"]).reset_index()
 
-# creating a df for all months with subscriptions
+    # creating a df for all months with subscriptions
 new_dates = []
-df2 = pd.DataFrame()
-lists = []
 
 for index, i in enumerate(df.start):
     y = i.split("-")
